@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <title>Mohit Jain</title>
+    <meta name="description" content="Text - A-Frame">
+    <!-- <script src="../../../dist/aframe-master.js"></script> -->
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
+    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- <a-assets>
+        <a-mixin
+          id="marker"
+          geometry="primitive: plane; width: 0.02; height: 0.02"
+          material="color: black"
+        ></a-mixin>
+      </a-assets> -->
+      <!-- geometry="primitive: plane; width: auto; height: auto" -->
+      <a-entity id="rain" particle-system="preset: rain; color: #24CAFF; particleCount: 5000"></a-entity>
+      <a-entity id="ocean" ocean="density: 20; width: 50; depth: 50; speed: 4"
+                material="color: #9CE3F9; opacity: 0.75; metalness: 0; roughness: 1"
+                rotation="-90 0 0"></a-entity>
+      <a-entity mixin="marker" position="-2.5 0.7 0.01"></a-entity>
+
+      <!-- Animations. -->
+      <a-entity id="opacity" position="-2.5 0.7 0"
+                text="color: white; align: center; value: ; width: 1.5">
+      </a-entity>
+      <a-entity mixin="marker" position="0 0.7 0.01"></a-entity>
+      <a-entity id="color" position="0 0.7 0"
+                text="color: white; align: center; value: Together we can face any challenges as deep as the ocean and as high as the sky. ; width: 1.5">
+      </a-entity>
+      <a-entity mixin="marker" position="2.5 0.7 0.01"></a-entity>
+      <a-entity id="size" position="2.5 0.7 0"
+                text="color: white; align: center; value: ; width: 1.5">
+      </a-entity>
+
+      <!-- Anchors. -->
+      <a-entity mixin="marker" position="-2.5 1 0.01"></a-entity>
+      <a-entity position="-2.5 1 0"
+                text="anchor: left; width: 1.5; color: white; value: Experience: ">
+      </a-entity>
+      <a-entity mixin="marker" position="0 1 0.01"></a-entity>
+      <a-entity position="0 1 0"
+                text="anchor: center; width: 1.5; color: white; value: Internship at Cisco Systems,
+                June 5, 2017 to August 25, 2017">
+      </a-entity>
+      <a-entity mixin="marker" position="2.5 1 0.01"></a-entity>
+      <a-entity position="2.5 1 0"
+                text="anchor: right; width: 1.5; color: white; value: Worked on extending Layer 2 and Layer 3 Traffic
+                to a Layer 4 to Layer 7 Traffic Generator and creating a GUI for a Wireless Simulator used for
+                testing purposes">
+      </a-entity>
+
+      <!-- Spacing. -->
+      <a-entity mixin="marker" position="-1 2.5 0.01"></a-entity>
+      <a-entity position="-1 3 0"
+                text="width: 2; color: white; value: Welcome to my website! My name is Mohit Jain, and I am a 3rd year, Computer Science major and Mathematics minor, student studying at the University of Pittsburgh.">
+      </a-entity>
+
+      <a-entity mixin="marker" position="-1 2 0.01"></a-entity>
+      <a-entity position="-1 2.2 0"
+                text="width: 2; lineHeight: 50; color: white; value: Just a little bit about myself, I am a very involved student. I play a variety of sports some of which include tennis and basketball, and am part of a variety of clubs at my school. One of my favorite things about coding is being able to explore a variety of different APIs and frameworks such as this one. Contact me by email: MOJ10@pitt.edu">
+      </a-entity>
+
+      <!-- Alignments. -->
+      <a-entity position="2 2 0">
+        <a-entity mixin="marker" position="0 0 0.01"></a-entity>
+        <a-entity position="0 0 0" material="color: #333"
+                  text="color: yellow; align: left; value: Front-end: HTML, CSS, Javascript, React, Node.js; width: 2; ">
+        </a-entity>
+        <a-entity mixin="marker" position="0 0.2 0.01"></a-entity>
+        <a-entity position="0 0.2 0" material="color: #333"
+                  text="color: red; align: left; value: Back-end: Java, C; width: 2; ">
+        </a-entity>
+        <a-entity mixin="marker" position="0 0.4 0.01"></a-entity>
+        <a-entity position="0 0.4 0" material="color: #eee"
+                  text="color: blue; align: center; value: Languages; width: 2; ">
+        </a-entity>
+      </a-entity>
+
+      <a-sky color="#222"></a-sky>
+      <a-entity position="0 1.8 2">
+        <a-entity camera look-controls wasd-controls></a-entity>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      // Animate opacity.
+      var opacity = document.getElementById('opacity');
+      var obj = {opacity: 0};
+      var tween = new AFRAME.TWEEN.Tween(obj)
+        .to({opacity: 1}, 500)
+        .repeat( Infinity )
+        .yoyo( true )
+        .onUpdate(function () {
+          opacity.setAttribute('text', 'opacity', obj.opacity);
+        })
+        .start();
+      // Animate color.
+      var color = document.getElementById('color');
+      setInterval(function() {
+        var randomHexColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+        color.setAttribute('text', 'color', randomHexColor);
+      }, 1000);
+      // Animate size.
+      var size = document.getElementById('size');
+      var objsize = {scale: 60};
+      var tween = new AFRAME.TWEEN.Tween(objsize)
+        .to({scale: 20}, 1000)
+        .repeat( Infinity )
+        .yoyo( true )
+        .onUpdate(function () {
+          size.setAttribute('text', 'wrapCount', objsize.scale);
+        })
+        .start();
+    </script>
+  </body>
+</html>
